@@ -46,10 +46,21 @@ routeur.use(function (req, res, next) {
 //POST
 routeur.post('/mycalendar',  (req,res) => {
     const newmo = req.body;
-    console.log("data received for Post/mycalendar on SERVEUR "+port);
-    console.log(newmo);
-    console.log('req : ', newmo ); // il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
-    res.send('Test working');
+        console.log("data received for Post/mycalendar on SERVEUR "+port);
+        console.log(newmo);
+            let newlol = JSON.stringify(newmo);
+        console.log('req : ', newlol );// il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
+        sql.query('UPDATE `mycalendar` SET statedisplay = ? ;', newlol, (err, results)=> {
+            if(err){
+                console.log('error to store in  STateDIsplay datas');
+                res.status(500).send('There is an error to store datas', err);
+            }else{
+                console.log("Data returned to POST /mycalendar :: status 200.");
+                res.status(200) ;
+                
+                res.end();
+            }
+        })
 })
 
 
@@ -64,7 +75,7 @@ routeur.post('/mybubbles', (req,res) => {
                 console.log('error to store in  STateBUbbleCOntent datas');
                 res.status(500).send('There is an error to store datas', err);
             }else{
-                console.log("Data returned to POST /mybubbles status 200.");
+                console.log("Data returned to POST /mybubbles :: status 200.");
                 res.status(200) ;
                 
                 res.end();
