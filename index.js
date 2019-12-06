@@ -63,6 +63,26 @@ routeur.post('/mycalendar',  (req,res) => {
         })
 })
 
+routeur.post('/mycalendar/:pitchname',  (req,res) => {
+    const newmo = req.params.pitchname;
+        console.log("data received for Post/mycalendar/:pitchname on SERVEUR "+port);
+        console.log(newmo);
+            let newlol = JSON.stringify(newmo);
+        console.log('req : ', newlol );// il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
+        sql.query('UPDATE `mycalendar` SET pitchname = ? ;', newlol, (err, results)=> {
+            if(err){
+                console.log('error to store in  STateDIsplay datas');
+                res.status(500).send('There is an error to store datas', err);
+            }else{
+                console.log("Data returned to POST /mycalendar :: status 200.");
+                res.status(200) ;
+                
+                res.end();
+            }
+        })
+})
+
+
 
 routeur.post('/mybubbles', (req,res) => {
     const newmo = req.body;
@@ -97,7 +117,7 @@ routeur.post('/asbl', (req,res) => {
 //GET
 routeur.get('/mycalendar', (req, res)=> {
     console.log("Request STateDIsplay on GET method for '/mycalendar' : ");
-
+   
     sql.query('SELECT * FROM mycalendar', (err, results)=> {
         if(err){
             console.log('error to get STateDIsplay datas');
