@@ -40,17 +40,32 @@ routeur.use(function (req, res, next) {
     next();
   });
 
-
-
 //===============================
 
 
 //POST
-routeur.post('/', (req,res) => {
-    const newmovie = req.body;
-    console.log("data received for Post on SERVEUR "+port);
-    console.log(newmovie);
-    console.log('req : '+ newmovie + req.get("year")); // il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
+routeur.post('/mycalendar',  (req,res) => {
+    const newmo = req.body;
+    console.log("data received for Post/mycalendar on SERVEUR "+port);
+    console.log(newmo);
+    console.log('req : ', newmo ); // il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
+    res.send('Test working');
+})
+
+
+routeur.post('/mybubbles', (req,res) => {
+    const newmo = req.body;
+    console.log("data received for Post/mybubbles on SERVEUR "+port);
+    console.log(newmo);
+    console.log('req : ', newmo );; // il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
+    res.send('Test working');
+})
+
+routeur.post('/asbl', (req,res) => {
+    const newmo = req.body;
+    console.log("data received for Post/asbl on SERVEUR "+port);
+    console.log(newmo);
+    console.log('req : ', newmo ); // il faut que dans le formulaire (fornt-end), il y ai précisé le type de donnée envoyée (l'objet fetched)
     res.send('Test working');
 })
 
@@ -63,7 +78,7 @@ routeur.get('/mycalendar', (req, res)=> {
             console.log('error to get STateDIsplay datas');
             res.status(500).send('There is an error to retrieve datas', err);
         }else{
-            res.send(results) ; ////////////////////////////////////
+            res.json(results) ;
             console.log("Data returned to GET/mycalendar req.", results);
         }
     })
